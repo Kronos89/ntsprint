@@ -1,22 +1,23 @@
-import express from 'express';
-import cors from 'cors';
-import db from './database/db.js';
-import IncidentRoutes from './routes/routes.js';
+//import express cors db and routes
+import express  from "express"
+import cors from 'cors'
+import db from "./database/db.js"
+import incidentRoutes from './routes/routes.js'
 
 const app = express()
 
 app.use(cors())
-app.use(express.json)
-app.use('/incident', IncidentRoutes)
+app.use(express.json())
+app.use('/incidents', incidentRoutes)
 
 try {
-  await db.authenticate()
-  console.log("Succesfull database connection")
+    await db.authenticate()
+    console.log('Database connection sucessfull')
 } catch (error) {
-  console.log(`Error:", ${ error }`)
+    console.log(`There are an error with database: ${error}`)
 }
 
-app.get('/', (req, res) => {
-  res.send("Its working")
-})
 
+app.listen(8000, ()=>{
+    console.log('Server UP and running in http://localhost:8000/')
+})
